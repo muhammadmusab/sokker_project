@@ -1,0 +1,19 @@
+{
+	"nom": "Emma",
+	"prenom": "Moore",
+	"gender": "female",
+	"date_naissance": "2013-11-25T00:00:00.000+00:00",
+	"telephone": "888-777-3333",
+	"email": "utilisateur10@example.com",
+	"password": null,
+	"photo": null,
+	"adresse": "901 Fir St",
+	"code_postal": "12345", 
+	"ville": "Ville J",
+	"nomRole": "Entraîneur",
+
+    
+	"biographie": null,
+	"certifications": null,
+	"cv": null
+}

@@ -1,0 +1,1057 @@
+{
+	"data": [
+		{
+			"id": 0,
+			"date_debut": "2023-10-09T08:00:00.000Z",
+			"date_fin": "2023-10-09T09:00:00.000Z",
+			"user": {
+				"id": "1",
+				"username": "john",
+				"name": "John",
+				"surname": "Doe",
+				"position": "CEO, Founder",
+				"email": "john@omtanke.studio",
+				"src": "/static/media/wanna1.199cb77469470f5b580a.webp",
+				"srcSet": "/static/media/wanna1.199cb77469470f5b580a.webp",
+				"isOnline": true,
+				"isReply": true,
+				"color": "primary",
+				"services": [
+					{
+						"name": "Surfing",
+						"icon": "Surfing",
+						"color": "info"
+					},
+					{
+						"name": "Kite Surfing",
+						"icon": "Kitesurfing",
+						"color": "danger"
+					},
+					{
+						"name": "Tennis",
+						"icon": "SportsTennis",
+						"color": "success"
+					}
+				],
+				"password": "@ABC123"
+			},
+			"name": "Kayaking",
+			"icon": "Kayaking",
+			"color": "info"
+		},
+		{
+			"id": 1,
+			"date_debut": "2023-10-09T11:00:00.000Z",
+			"date_fin": "2023-10-09T01:00:00.000Z",
+			"user": {
+				"id": "2",
+				"username": "john",
+				"name": "John",
+				"surname": "Doe",
+				"position": "CEO, Founder",
+				"email": "john@omtanke.studio",
+				"src": "/static/media/wanna1.199cb77469470f5b580a.webp",
+				"srcSet": "/static/media/wanna1.199cb77469470f5b580a.webp",
+				"isOnline": true,
+				"isReply": true,
+				"color": "primary",
+				"services": [
+					{
+						"name": "Surfing",
+						"icon": "Surfing",
+						"color": "info"
+					},
+					{
+						"name": "Kite Surfing",
+						"icon": "Kitesurfing",
+						"color": "danger"
+					},
+					{
+						"name": "Tennis",
+						"icon": "SportsTennis",
+						"color": "success"
+					}
+				],
+				"password": "@ABC123"
+			},
+			"name": "Kayaking",
+			"icon": "Kayaking",
+			"color": "info"
+		},
+		{
+			"id": 3,
+			"date_debut": "2023-10-09T08:45:00.000Z",
+			"date_fin": "2023-10-09T10:45:00.000Z",
+			"user": {
+				"id": "2",
+				"username": "john",
+				"name": "John",
+				"surname": "Doe",
+				"position": "CEO, Founder",
+				"email": "john@omtanke.studio",
+				"src": "/static/media/wanna1.199cb77469470f5b580a.webp",
+				"srcSet": "/static/media/wanna1.199cb77469470f5b580a.webp",
+				"isOnline": true,
+				"isReply": true,
+				"color": "primary",
+				"services": [
+					{
+						"name": "Surfing",
+						"icon": "Surfing",
+						"color": "info"
+					},
+					{
+						"name": "Kite Surfing",
+						"icon": "Kitesurfing",
+						"color": "danger"
+					},
+					{
+						"name": "Tennis",
+						"icon": "SportsTennis",
+						"color": "success"
+					}
+				],
+				"password": "@ABC123"
+			},
+			"name": "Kayaking",
+			"icon": "Kayaking",
+			"color": "info"
+		},
+		{
+			"name": "fdqsf",
+			"date_debut": "2023-10-10T00:00:00+01:00",
+			"date_fin": "2023-10-11T00:00:00+01:00",
+			"user": {
+				"id": "2",
+				"username": "john",
+				"name": "John",
+				"surname": "Doe",
+				"position": "CEO, Founder",
+				"email": "john@omtanke.studio",
+				"src": "/static/media/wanna1.199cb77469470f5b580a.webp",
+				"srcSet": "/static/media/wanna1.199cb77469470f5b580a.webp",
+				"isOnline": true,
+				"isReply": true,
+				"color": "primary",
+				"services": [
+					{
+						"name": "Surfing",
+						"icon": "Surfing",
+						"color": "info"
+					},
+					{
+						"name": "Kite Surfing",
+						"icon": "Kitesurfing",
+						"color": "danger"
+					},
+					{
+						"name": "Tennis",
+						"icon": "SportsTennis",
+						"color": "success"
+					}
+				],
+				"password": "@ABC123"
+			},
+			"eventAllDay": true,
+			"description": "",
+			"localisation": "fdqsf",
+			"eventId": null,
+			"id": 4
+		},
+		{
+			"name": "cdqsf",
+			"date_debut": "2023-10-10T00:00:00+01:00",
+			"date_fin": "2023-10-11T00:00:00+01:00",
+			"user": {
+				"id": "2",
+				"username": "john",
+				"name": "John",
+				"surname": "Doe",
+				"position": "CEO, Founder",
+				"email": "john@omtanke.studio",
+				"src": "/static/media/wanna1.199cb77469470f5b580a.webp",
+				"srcSet": "/static/media/wanna1.199cb77469470f5b580a.webp",
+				"isOnline": true,
+				"isReply": true,
+				"color": "primary",
+				"services": [
+					{
+						"name": "Surfing",
+						"icon": "Surfing",
+						"color": "info"
+					},
+					{
+						"name": "Kite Surfing",
+						"icon": "Kitesurfing",
+						"color": "danger"
+					},
+					{
+						"name": "Tennis",
+						"icon": "SportsTennis",
+						"color": "success"
+					}
+				],
+				"password": "@ABC123"
+			},
+			"eventAllDay": true,
+			"description": "dqsf",
+			"localisation": "fdqsf",
+			"eventId": null,
+			"id": 5
+		},
+		{
+			"name": "fdqsfaf",
+			"date_debut": "2023-10-11T00:00:00+01:00",
+			"date_fin": "2023-10-12T00:00:00+01:00",
+			"user": {
+				"id": "2",
+				"username": "john",
+				"name": "John",
+				"surname": "Doe",
+				"position": "CEO, Founder",
+				"email": "john@omtanke.studio",
+				"src": "/static/media/wanna1.199cb77469470f5b580a.webp",
+				"srcSet": "/static/media/wanna1.199cb77469470f5b580a.webp",
+				"isOnline": true,
+				"isReply": true,
+				"color": "primary",
+				"services": [
+					{
+						"name": "Surfing",
+						"icon": "Surfing",
+						"color": "info"
+					},
+					{
+						"name": "Kite Surfing",
+						"icon": "Kitesurfing",
+						"color": "danger"
+					},
+					{
+						"name": "Tennis",
+						"icon": "SportsTennis",
+						"color": "success"
+					}
+				],
+				"password": "@ABC123"
+			},
+			"eventAllDay": true,
+			"description": "fqsdfa",
+			"localisation": "fdqsf",
+			"eventId": null,
+			"id": 6
+		},
+		{
+			"name": "fsqdf",
+			"date_debut": "2023-10-11T00:00:00+01:00",
+			"date_fin": "2023-10-12T00:00:00+01:00",
+			"eventEmployee": "john",
+			"eventAllDay": true,
+			"description": "fsdqf",
+			"localisation": "fdsq",
+			"id": 7
+		}
+	],
+	"types": [
+		{
+			"nom": "Matche Entre Nous",
+			"value": "match"
+		},
+		{
+			"nom": "Evenement",
+			"value": "event"
+		}
+	],
+	"clubs": [
+		{
+<<<<<<< HEAD
+			"id": 6,
+			"nom": "Team D",
+			"genre": "Mixed",
+			"categorieAge": "U13",
+			"createdAt": "2022-10-04T07:00:00.000+00:00",
+			"modifiedAt": "2022-10-04T07:00:00.000+00:00",
+			"entraineurs": [
+				{
+					"id": 5,
+					"username": "user5",
+					"gender": "Male",
+					"email": "user5@example.com",
+					"password": "password5",
+					"nom": "Williams",
+					"prenom": "David",
+					"photo": "user5.jpg",
+					"date_naissance": "1991-05-10T00:00:00.000+00:00",
+					"telephone": "555-567-1234",
+					"status": true,
+					"biographie": "Biographie 5",
+					"certifications": "Certifications 5",
+					"cv": "CV 5",
+					"date_inscription": "2023-10-19T07:00:00.000+00:00",
+					"modifiedAt": "2023-10-19T07:00:00.000+00:00"
+				}
+			],
+			"evenements": [],
+			"status": true,
+			"joueurs": [
+				{
+					"id": 6,
+					"username": "user6",
+					"gender": "Female",
+					"email": "user6@example.com",
+					"password": "password6",
+					"nom": "Jones",
+					"prenom": "Laura",
+					"photo": "user6.jpg",
+					"date_naissance": "1993-06-15T00:00:00.000+00:00",
+					"telephone": "555-432-8765",
+					"status": true,
+					"numeroLicence": "87654",
+					"poste": "Forward",
+					"ficheSante": "player6_sante.pdf",
+					"taille": "185 cm",
+					"poids": "85 kg",
+					"vma": "16",
+					"clubPrecedent": "Club B",
+					"niveau": "Amateur",
+					"saisonActuelle": "2022-2023",
+					"pointure": "45",
+					"tailleMaillot": "XL",
+					"drive": null,
+					"mere_utilisateur": null,
+					"pere_utilisateur": null,
+					"dateInscription": "2022-06-05"
+				}
+			],
+			"club": {
+				"id": 1,
+				"nom_club": "Club A",
+				"logo": "club1_logo.png",
+				"adresse": "123 Main Street",
+				"code_postal": "12345",
+				"ville": "City A",
+				"site_web": "https://www.clubA.com",
+				"stade": "Stade A",
+				"telephone": "555-123-4567",
+				"nbre_licencies": 500,
+				"id_fff": "FFF123",
+				"date_creation": "2023-01-15T09:00:00.000+00:00",
+				"date_fondation": "2000-05-20T00:00:00.000+00:00",
+				"status": true
+			},
+			"nbrJoueurs": 1,
+			"joueur_ids": null,
+			"coach_ids": null
+		},
+		{
+			"id": 4,
+			"nom": "Team B",
+			"genre": "Male",
+			"categorieAge": "U9",
+			"createdAt": "2022-10-02T07:00:00.000+00:00",
+			"modifiedAt": "2022-10-02T07:00:00.000+00:00",
+			"entraineurs": [
+				{
+					"id": 5,
+					"username": "user5",
+					"gender": "Male",
+					"email": "user5@example.com",
+					"password": "password5",
+					"nom": "Williams",
+					"prenom": "David",
+					"photo": "user5.jpg",
+					"date_naissance": "1991-05-10T00:00:00.000+00:00",
+					"telephone": "555-567-1234",
+					"status": true,
+					"biographie": "Biographie 5",
+					"certifications": "Certifications 5",
+					"cv": "CV 5",
+					"date_inscription": "2023-10-19T07:00:00.000+00:00",
+					"modifiedAt": "2023-10-19T07:00:00.000+00:00"
+				}
+			],
+			"evenements": [],
+			"status": true,
+			"joueurs": [
+				{
+					"id": 3,
+					"username": "user3",
+					"gender": "Male",
+					"email": "user3@example.com",
+					"password": "password3",
+					"nom": "Johnson",
+					"prenom": "Michael",
+					"photo": "user3.jpg",
+					"date_naissance": "1995-03-20T00:00:00.000+00:00",
+					"telephone": "555-234-5678",
+					"status": true,
+					"numeroLicence": "54321",
+					"poste": "Defender",
+					"ficheSante": "player3_sante.pdf",
+					"taille": "172 cm",
+					"poids": "70 kg",
+					"vma": "17",
+					"clubPrecedent": "Club C",
+					"niveau": "Amateur",
+					"saisonActuelle": "2022-2023",
+					"pointure": "40",
+					"tailleMaillot": "M",
+					"drive": null,
+					"mere_utilisateur": null,
+					"pere_utilisateur": null,
+					"dateInscription": "2022-03-20"
+				},
+				{
+					"id": 9,
+					"username": "user9",
+					"gender": "Male",
+					"email": "user9@example.com",
+					"password": "password9",
+					"nom": "Wilson",
+					"prenom": "Robert",
+					"photo": "user9.jpg",
+					"date_naissance": "1992-09-30T00:00:00.000+00:00",
+					"telephone": "555-890-4567",
+					"status": true,
+					"numeroLicence": "34567",
+					"poste": "Midfielder",
+					"ficheSante": "player9_sante.pdf",
+					"taille": "176 cm",
+					"poids": "76 kg",
+					"vma": "18",
+					"clubPrecedent": "Club A",
+					"niveau": "Amateur",
+					"saisonActuelle": "2022-2023",
+					"pointure": "42",
+					"tailleMaillot": "L",
+					"drive": null,
+					"mere_utilisateur": null,
+					"pere_utilisateur": null,
+					"dateInscription": "2022-09-20"
+				}
+			],
+			"club": {
+				"id": 1,
+				"nom_club": "Club A",
+				"logo": "club1_logo.png",
+				"adresse": "123 Main Street",
+				"code_postal": "12345",
+				"ville": "City A",
+				"site_web": "https://www.clubA.com",
+				"stade": "Stade A",
+				"telephone": "555-123-4567",
+				"nbre_licencies": 500,
+				"id_fff": "FFF123",
+				"date_creation": "2023-01-15T09:00:00.000+00:00",
+				"date_fondation": "2000-05-20T00:00:00.000+00:00",
+				"status": true
+			},
+			"nbrJoueurs": 2,
+			"joueur_ids": null,
+			"coach_ids": null
+		},
+		{
+			"id": 9,
+			"nom": "Team G",
+			"genre": "Mixed",
+			"categorieAge": "U19",
+			"createdAt": "2022-10-07T07:00:00.000+00:00",
+			"modifiedAt": "2022-10-07T07:00:00.000+00:00",
+			"entraineurs": [
+				{
+					"id": 5,
+					"username": "user5",
+					"gender": "Male",
+					"email": "user5@example.com",
+					"password": "password5",
+					"nom": "Williams",
+					"prenom": "David",
+					"photo": "user5.jpg",
+					"date_naissance": "1991-05-10T00:00:00.000+00:00",
+					"telephone": "555-567-1234",
+					"status": true,
+					"biographie": "Biographie 5",
+					"certifications": "Certifications 5",
+					"cv": "CV 5",
+					"date_inscription": "2023-10-19T07:00:00.000+00:00",
+					"modifiedAt": "2023-10-19T07:00:00.000+00:00"
+				}
+			],
+			"evenements": [],
+			"status": true,
+			"joueurs": [],
+			"club": {
+				"id": 1,
+				"nom_club": "Club A",
+				"logo": "club1_logo.png",
+				"adresse": "123 Main Street",
+				"code_postal": "12345",
+				"ville": "City A",
+				"site_web": "https://www.clubA.com",
+				"stade": "Stade A",
+				"telephone": "555-123-4567",
+				"nbre_licencies": 500,
+				"id_fff": "FFF123",
+				"date_creation": "2023-01-15T09:00:00.000+00:00",
+				"date_fondation": "2000-05-20T00:00:00.000+00:00",
+				"status": true
+			},
+			"nbrJoueurs": 0,
+			"joueur_ids": null,
+			"coach_ids": null
+		},
+		{
+			"id": 10,
+			"nom": "Team H",
+			"genre": "Male",
+			"categorieAge": "Séniors",
+			"createdAt": "2022-10-08T07:00:00.000+00:00",
+			"modifiedAt": "2022-10-08T07:00:00.000+00:00",
+			"entraineurs": [
+				{
+					"id": 5,
+					"username": "user5",
+					"gender": "Male",
+					"email": "user5@example.com",
+					"password": "password5",
+					"nom": "Williams",
+					"prenom": "David",
+					"photo": "user5.jpg",
+					"date_naissance": "1991-05-10T00:00:00.000+00:00",
+					"telephone": "555-567-1234",
+					"status": true,
+					"biographie": "Biographie 5",
+					"certifications": "Certifications 5",
+					"cv": "CV 5",
+					"date_inscription": "2023-10-19T07:00:00.000+00:00",
+					"modifiedAt": "2023-10-19T07:00:00.000+00:00"
+				}
+			],
+			"evenements": [
+				{
+					"id": 3,
+					"nom": "Tournoi Junior 1",
+					"description": "Tournoi de football junior",
+					"localisation": "Stade C",
+					"date_debut": "2023-10-20T09:00:00.000+00:00",
+					"date_fin": "2023-10-20T11:00:00.000+00:00",
+					"status": true,
+					"type": "tournoi"
+				}
+			],
+			"status": true,
+			"joueurs": [],
+			"club": {
+				"id": 1,
+				"nom_club": "Club A",
+				"logo": "club1_logo.png",
+				"adresse": "123 Main Street",
+				"code_postal": "12345",
+				"ville": "City A",
+				"site_web": "https://www.clubA.com",
+				"stade": "Stade A",
+				"telephone": "555-123-4567",
+				"nbre_licencies": 500,
+				"id_fff": "FFF123",
+				"date_creation": "2023-01-15T09:00:00.000+00:00",
+				"date_fondation": "2000-05-20T00:00:00.000+00:00",
+				"status": true
+			},
+			"nbrJoueurs": 0,
+			"joueur_ids": null,
+			"coach_ids": null
+		},
+		{
+			"id": 7,
+			"nom": "Team E",
+			"genre": "Male",
+			"categorieAge": "U15",
+			"createdAt": "2022-10-05T07:00:00.000+00:00",
+			"modifiedAt": "2022-10-05T07:00:00.000+00:00",
+			"entraineurs": [
+				{
+					"id": 5,
+					"username": "user5",
+					"gender": "Male",
+					"email": "user5@example.com",
+					"password": "password5",
+					"nom": "Williams",
+					"prenom": "David",
+					"photo": "user5.jpg",
+					"date_naissance": "1991-05-10T00:00:00.000+00:00",
+					"telephone": "555-567-1234",
+					"status": true,
+					"biographie": "Biographie 5",
+					"certifications": "Certifications 5",
+					"cv": "CV 5",
+					"date_inscription": "2023-10-19T07:00:00.000+00:00",
+					"modifiedAt": "2023-10-19T07:00:00.000+00:00"
+				}
+			],
+			"evenements": [
+				{
+					"id": 2,
+					"nom": "Match Amical 1",
+					"description": "Match amical contre equipe B",
+					"localisation": "Stade B",
+					"date_debut": "2023-10-18T13:00:00.000+00:00",
+					"date_fin": "2023-10-18T15:00:00.000+00:00",
+					"status": true,
+					"type": "match amical"
+				}
+			],
+			"status": true,
+			"joueurs": [],
+			"club": {
+				"id": 1,
+				"nom_club": "Club A",
+				"logo": "club1_logo.png",
+				"adresse": "123 Main Street",
+				"code_postal": "12345",
+				"ville": "City A",
+				"site_web": "https://www.clubA.com",
+				"stade": "Stade A",
+				"telephone": "555-123-4567",
+				"nbre_licencies": 500,
+				"id_fff": "FFF123",
+				"date_creation": "2023-01-15T09:00:00.000+00:00",
+				"date_fondation": "2000-05-20T00:00:00.000+00:00",
+				"status": true
+			},
+			"nbrJoueurs": 0,
+			"joueur_ids": null,
+			"coach_ids": null
+		},
+		{
+			"id": 11,
+			"nom": "Team I",
+			"genre": "Female",
+			"categorieAge": "Séniors",
+			"createdAt": "2022-10-09T07:00:00.000+00:00",
+			"modifiedAt": "2022-10-09T07:00:00.000+00:00",
+			"entraineurs": [
+				{
+					"id": 5,
+					"username": "user5",
+					"gender": "Male",
+					"email": "user5@example.com",
+					"password": "password5",
+					"nom": "Williams",
+					"prenom": "David",
+					"photo": "user5.jpg",
+					"date_naissance": "1991-05-10T00:00:00.000+00:00",
+					"telephone": "555-567-1234",
+					"status": true,
+					"biographie": "Biographie 5",
+					"certifications": "Certifications 5",
+					"cv": "CV 5",
+					"date_inscription": "2023-10-19T07:00:00.000+00:00",
+					"modifiedAt": "2023-10-19T07:00:00.000+00:00"
+				}
+			],
+			"evenements": [
+				{
+					"id": 4,
+					"nom": "Entraînement 2",
+					"description": "Entraînement de equipe C",
+					"localisation": "Stade A",
+					"date_debut": "2023-10-22T10:00:00.000+00:00",
+					"date_fin": "2023-10-22T12:00:00.000+00:00",
+					"status": true,
+					"type": "entrainement"
+				}
+			],
+			"status": true,
+			"joueurs": [],
+			"club": {
+				"id": 1,
+				"nom_club": "Club A",
+				"logo": "club1_logo.png",
+				"adresse": "123 Main Street",
+				"code_postal": "12345",
+				"ville": "City A",
+				"site_web": "https://www.clubA.com",
+				"stade": "Stade A",
+				"telephone": "555-123-4567",
+				"nbre_licencies": 500,
+				"id_fff": "FFF123",
+				"date_creation": "2023-01-15T09:00:00.000+00:00",
+				"date_fondation": "2000-05-20T00:00:00.000+00:00",
+				"status": true
+			},
+			"nbrJoueurs": 0,
+			"joueur_ids": null,
+			"coach_ids": null
+		},
+		{
+			"id": 8,
+			"nom": "Team F",
+			"genre": "Female",
+			"categorieAge": "U17",
+			"createdAt": "2022-10-06T07:00:00.000+00:00",
+			"modifiedAt": "2022-10-06T07:00:00.000+00:00",
+			"entraineurs": [
+				{
+					"id": 5,
+					"username": "user5",
+					"gender": "Male",
+					"email": "user5@example.com",
+					"password": "password5",
+					"nom": "Williams",
+					"prenom": "David",
+					"photo": "user5.jpg",
+					"date_naissance": "1991-05-10T00:00:00.000+00:00",
+					"telephone": "555-567-1234",
+					"status": true,
+					"biographie": "Biographie 5",
+					"certifications": "Certifications 5",
+					"cv": "CV 5",
+					"date_inscription": "2023-10-19T07:00:00.000+00:00",
+					"modifiedAt": "2023-10-19T07:00:00.000+00:00"
+				}
+			],
+			"evenements": [],
+			"status": true,
+			"joueurs": [
+				{
+					"id": 2,
+					"username": "user2",
+					"gender": "Female",
+					"email": "user2@example.com",
+					"password": "password2",
+					"nom": "Smith",
+					"prenom": "Jane",
+					"photo": "user2.jpg",
+					"date_naissance": "1985-02-14T23:00:00.000+00:00",
+					"telephone": "555-987-6543",
+					"status": true,
+					"numeroLicence": "67890",
+					"poste": "Midfielder",
+					"ficheSante": "player2_sante.pdf",
+					"taille": "182 cm",
+					"poids": "80 kg",
+					"vma": "16",
+					"clubPrecedent": "Club B",
+					"niveau": "Amateur",
+					"saisonActuelle": "2022-2023",
+					"pointure": "44",
+					"tailleMaillot": "XL",
+					"drive": null,
+					"mere_utilisateur": null,
+					"pere_utilisateur": null,
+					"dateInscription": "2022-02-15"
+				},
+				{
+					"id": 7,
+					"username": "user7",
+					"gender": "Male",
+					"email": "user7@example.com",
+					"password": "password7",
+					"nom": "Davis",
+					"prenom": "Christopher",
+					"photo": "user7.jpg",
+					"date_naissance": "1988-07-20T00:00:00.000+00:00",
+					"telephone": "555-678-2345",
+					"status": true,
+					"numeroLicence": "43210",
+					"poste": "Defender",
+					"ficheSante": "player7_sante.pdf",
+					"taille": "170 cm",
+					"poids": "71 kg",
+					"vma": "17",
+					"clubPrecedent": "Club C",
+					"niveau": "Amateur",
+					"saisonActuelle": "2022-2023",
+					"pointure": "40",
+					"tailleMaillot": "M",
+					"drive": null,
+					"mere_utilisateur": null,
+					"pere_utilisateur": null,
+					"dateInscription": "2022-07-10"
+				},
+				{
+					"id": 8,
+					"username": "user8",
+					"gender": "Female",
+					"email": "user8@example.com",
+					"password": "password8",
+					"nom": "Miller",
+					"prenom": "Sophia",
+					"photo": "user8.jpg",
+					"date_naissance": "1986-08-25T00:00:00.000+00:00",
+					"telephone": "555-789-3456",
+					"status": true,
+					"numeroLicence": "56789",
+					"poste": "Goalkeeper",
+					"ficheSante": "player8_sante.pdf",
+					"taille": "176 cm",
+					"poids": "79 kg",
+					"vma": "19",
+					"clubPrecedent": "Club D",
+					"niveau": "Amateur",
+					"saisonActuelle": "2022-2023",
+					"pointure": "44",
+					"tailleMaillot": "L",
+					"drive": null,
+					"mere_utilisateur": null,
+					"pere_utilisateur": null,
+					"dateInscription": "2022-08-15"
+				}
+			],
+			"club": {
+				"id": 1,
+				"nom_club": "Club A",
+				"logo": "club1_logo.png",
+				"adresse": "123 Main Street",
+				"code_postal": "12345",
+				"ville": "City A",
+				"site_web": "https://www.clubA.com",
+				"stade": "Stade A",
+				"telephone": "555-123-4567",
+				"nbre_licencies": 500,
+				"id_fff": "FFF123",
+				"date_creation": "2023-01-15T09:00:00.000+00:00",
+				"date_fondation": "2000-05-20T00:00:00.000+00:00",
+				"status": true
+			},
+			"nbrJoueurs": 3,
+			"joueur_ids": null,
+			"coach_ids": null
+		},
+		{
+			"id": 5,
+			"nom": "Team C",
+			"genre": "Female",
+			"categorieAge": "U11",
+			"createdAt": "2022-10-03T07:00:00.000+00:00",
+			"modifiedAt": "2022-10-03T07:00:00.000+00:00",
+			"entraineurs": [
+				{
+					"id": 5,
+					"username": "user5",
+					"gender": "Male",
+					"email": "user5@example.com",
+					"password": "password5",
+					"nom": "Williams",
+					"prenom": "David",
+					"photo": "user5.jpg",
+					"date_naissance": "1991-05-10T00:00:00.000+00:00",
+					"telephone": "555-567-1234",
+					"status": true,
+					"biographie": "Biographie 5",
+					"certifications": "Certifications 5",
+					"cv": "CV 5",
+					"date_inscription": "2023-10-19T07:00:00.000+00:00",
+					"modifiedAt": "2023-10-19T07:00:00.000+00:00"
+				}
+			],
+			"evenements": [],
+			"status": true,
+			"joueurs": [],
+			"club": {
+				"id": 1,
+				"nom_club": "Club A",
+				"logo": "club1_logo.png",
+				"adresse": "123 Main Street",
+				"code_postal": "12345",
+				"ville": "City A",
+				"site_web": "https://www.clubA.com",
+				"stade": "Stade A",
+				"telephone": "555-123-4567",
+				"nbre_licencies": 500,
+				"id_fff": "FFF123",
+				"date_creation": "2023-01-15T09:00:00.000+00:00",
+				"date_fondation": "2000-05-20T00:00:00.000+00:00",
+				"status": true
+			},
+			"nbrJoueurs": 0,
+			"joueur_ids": null,
+			"coach_ids": null
+		},
+		{
+			"id": 3,
+			"nom": "Team R",
+			"genre": "Mascul",
+			"categorieAge": "U7",
+			"createdAt": "2022-10-01T07:00:00.000+00:00",
+			"modifiedAt": "2023-10-12T13:56:59.569+00:00",
+			"entraineurs": [],
+			"evenements": [
+				{
+					"id": 1,
+					"nom": "Entraînement 1",
+					"description": "Entraînement de equipe A",
+					"localisation": "Stade A",
+					"date_debut": "2023-10-15T08:00:00.000+00:00",
+					"date_fin": "2023-10-15T10:00:00.000+00:00",
+					"status": true,
+					"type": "entrainement"
+				}
+			],
+			"status": false,
+			"joueurs": [
+				{
+					"id": 10,
+					"username": "user10",
+					"gender": "Female",
+					"email": "user10@example.com",
+					"password": "password10",
+					"nom": "Martinez",
+					"prenom": "Sarah",
+					"photo": "user10.jpg",
+					"date_naissance": "1989-10-05T00:00:00.000+00:00",
+					"telephone": "555-901-5678",
+					"status": true,
+					"numeroLicence": "98765",
+					"poste": "Forward",
+					"ficheSante": "player10_sante.pdf",
+					"taille": "178 cm",
+					"poids": "80 kg",
+					"vma": "16",
+					"clubPrecedent": "Club B",
+					"niveau": "Amateur",
+					"saisonActuelle": "2022-2023",
+					"pointure": "43",
+					"tailleMaillot": "XL",
+					"drive": null,
+					"mere_utilisateur": null,
+					"pere_utilisateur": null,
+					"dateInscription": "2022-10-25"
+				}
+			],
+			"club": null,
+			"nbrJoueurs": 1,
+			"joueur_ids": null,
+			"coach_ids": null
+		},
+		{
+			"id": 12,
+			"nom": "Team J anas E",
+			"genre": "masculin",
+			"categorieAge": "20 ans et plus",
+			"createdAt": "2022-10-10T07:00:00.000+00:00",
+			"modifiedAt": "2023-10-12T16:13:57.948+00:00",
+			"entraineurs": [],
+			"evenements": [],
+			"status": false,
+			"joueurs": [],
+			"club": null,
+			"nbrJoueurs": 0,
+			"joueur_ids": null,
+			"coach_ids": null
+		}
+	]
+}
+
+{
+    "id":18,
+    "nom": "kakaka",
+    "genre": "Mix",
+    "categorieAge": "20 ans et plus",
+    "avatar": null,
+    "joueur_ids": [
+        11,17
+    ],
+    "coach_ids": [
+        1
+    ],
+    "entraineurs": [
+        {
+            "id": 1,
+            "gender": "female",
+            "email": "utilisateur10@example.com",
+            "password": null,
+            "nom": "pep",
+            "prenom": "coach",
+            "photo": "https://firebasestorage.googleapis.com/v0/b/whatsapp-befd6.appspot.com/o/pep.webp?alt=media&token=318c7738-4292-4901-875d-5039721d3503",
+            "date_naissance": "2013-11-25T00:00:00.000+00:00",
+            "telephone": "888-777-3333",
+            "adresse": "901 Fir St",
+            "code_postal": "12345",
+            "ville": "Ville J",
+            "date_inscription": "2023-10-16T18:02:11.324+00:00",
+            "status": true,
+            "role": null,
+            "club": null,
+            "absences": [],
+            "nomRole": null,
+            "biographie": null,
+            "certifications": null,
+            "cv": null,
+            "modifiedAt": null
+        }
+    ],
+    "joueurs": [
+        {
+            "id": 17,
+            "gender": "mal",
+            "email": "lololol@example.com",
+            "password": "123",
+            "nom": "imad test",
+            "prenom": "wow",
+            "photo": null,
+            "date_naissance": "2005-03-10T00:00:00.000+00:00",
+            "telephone": "987-654-3210",
+            "adresse": "456 Elm St",
+            "code_postal": "67890",
+            "ville": "Ville B",
+            "date_inscription": "2023-10-17T00:27:10.061+00:00",
+            "status": true,
+            "role": {
+                "id": 3,
+                "nomRole": "Joueur",
+                "status": true
+            },
+            "club": null,
+            "absences": [],
+            "nomRole": null,
+            "numeroLicence": "J23456",
+            "poste": "Milieu de terrain",
+            "ficheSante": "fiche_sante_joueur2.pdf",
+            "taille": "165 cm",
+            "poids": "55 kg",
+            "vma": "22 km/h",
+            "clubPrecedent": "Club de Jeunesse Y",
+            "niveau": "Avancé",
+            "saisonActuelle": "2023",
+            "pointure": "36",
+            "tailleMaillot": "M",
+            "reseau_sociauxes": [],
+            "mere_utilisateur": {
+                "id": 15,
+                "gender": null,
+                "email": "utilisateur6@example.com",
+                "password": null,
+                "nom": "liknecnuneinbr",
+                "prenom": "Jones",
+                "photo": null,
+                "date_naissance": "2009-07-14T23:00:00.000+00:00",
+                "telephone": "444-666-7777",
+                "adresse": "890 Maple St",
+                "code_postal": "98765",
+                "ville": "Ville F",
+                "date_inscription": "2023-10-17T00:27:10.061+00:00",
+                "status": true,
+                "nomRole": null
+            },
+            "pere_utilisateur": {
+                "id": 16,
+                "gender": null,
+                "email": "utilisateur6@example.com",
+                "password": null,
+                "nom": "lalalalalalala",
+                "prenom": "Jones",
+                "photo": null,
+                "date_naissance": "2009-07-14T23:00:00.000+00:00",
+                "telephone": "444-666-7777",
+                "adresse": "890 Maple St",
+                "code_postal": "98765",
+                "ville": "Ville F",
+                "date_inscription": "2023-10-17T00:27:10.061+00:00",
+                "status": true,
+                "nomRole": null
+            }
+        }
+    ],
+    "status": true,
+    "club": null
+}
