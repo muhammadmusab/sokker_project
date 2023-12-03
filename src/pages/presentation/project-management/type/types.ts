@@ -11,7 +11,7 @@ export type FromField = {
 	id: string;
 	name: string;
 	label: string;
-	type: TInputTypes | 'select';
+	type: TInputTypes | 'select' | 'ReactSelect';
 	placeHolder: string;
 	className: string;
 	options?: SelectOption[];

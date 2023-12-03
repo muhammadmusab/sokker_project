@@ -19,11 +19,12 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { addClub, updateItemById } from '../../../requests';
 import { toast } from 'react-hot-toast';
 import DynamicForm from '../../../components/forms/DynamicForm';
-import { clubFormSteps } from '../../../constents/formFields';
+import { clubFormBlocks } from '../../../constents/formFields';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { CLUB_FORM_SCHEMA } from '../../../components/forms/schemas/clubFormSchema';
 import { Cluub } from '../../../types';
 import dayjs from 'dayjs';
+import FormBlocks from '../../../components/forms/FormBlocks';
 
 type FormClubProps = {
 	mode: 'edit' | 'add';
@@ -83,7 +84,7 @@ export const ClubForm = ({ mode, defaultData }: FormClubProps) => {
 		}
 	};
 
-	const currentFormField = clubFormSteps.find(({ stepNumber }) => stepNumber === formStep);
+	// const currentFormField = clubFormSteps.find(({ stepNumber }) => stepNumber === formStep);
 	useEffect(() => {
 		if (defaultData) {
 			reset({
@@ -127,41 +128,22 @@ export const ClubForm = ({ mode, defaultData }: FormClubProps) => {
 				</SubHeader>
 				<Page>
 					<div className='row  align-content-start'>
-						<Card>
+						{/* <Card>
 							<CardHeader>
 								<CardLabel icon='people' iconColor='info'>
-									<CardTitle>
-										{currentFormField?.title ?? 'Ajouter Club'}
-									</CardTitle>
+									<CardTitle>Ajouter Club</CardTitle>
 								</CardLabel>
-							</CardHeader>
-							<CardBody>
-								<div className='row g-4 '>
-									<DynamicForm
+							</CardHeader> */}
+							{/* <CardBody> */}
+							
+									{/* <DynamicForm
 										formFields={currentFormField?.formFields ?? []}
 										hookForm={hookForm}
-									/>
-									<div className='d-flex justify-content-between  '>
-										<Button
-											isDisable={formStep <= 1}
-											onClick={() => {
-												setFormStep(formStep - 1);
-											}}
-											color='warning'>
-											Précédant
-										</Button>
-										<Button
-											isDisable={formStep >= 4}
-											onClick={() => {
-												setFormStep(formStep + 1);
-											}}
-											color='warning'>
-											Suivant
-										</Button>
-									</div>
-								</div>
-							</CardBody>
-						</Card>
+									/> */}
+									<FormBlocks formBlocks={clubFormBlocks} hookForm={hookForm} />
+							
+							{/* </CardBody> */}
+						{/* </Card> */}
 					</div>
 				</Page>
 			</form>

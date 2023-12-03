@@ -77,7 +77,7 @@ export const getEvent = async (): Promise<Event[]> => {
 	return data;
 };
 
-export const getEquipes = async (): Promise<datos[]> => {
+export const getEquipes = async (): Promise<{content:datos[]}> => {
 	try {
 		const  res = await axios.get('https://spring-boot-sokker.onrender.com/api/equipes');
 

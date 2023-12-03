@@ -3,7 +3,7 @@ import { useFormik } from 'formik';
 import dayjs, { Dayjs } from 'dayjs';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import { number } from 'prop-types';
+
 import PageWrapper from '../../../layout/PageWrapper/PageWrapper';
 import { demoPagesMenu } from '../../../menu';
 import SubHeader, { SubHeaderLeft, SubHeaderRight } from '../../../layout/SubHeader/SubHeader';
@@ -41,8 +41,8 @@ const FormTeam = () => {
 	// Get All Equipes
 	useEffect(() => {
 		getEquipes()
-			.then((res) => {
-				setEquipes(res);
+			.then((data) => {
+				setEquipes(data.content);
 			})
 			.catch((err) => console.log(err));
 	}, [ignord]);
@@ -474,11 +474,13 @@ const FormTeam = () => {
 												value={formik.values.equipeId}
 												onChange={formik.handleChange}
 												ariaLabel=''>
-												{equipes?.map((item) => (
-													<Option key={item.id} value={item.id}>
-														{item.nom}
-													</Option>
-												))}
+												{equipes && equipes.length
+													? equipes?.map((item) => (
+															<Option key={item.id} value={item.id}>
+																{item.nom}
+															</Option>
+													  ))
+													: null}
 											</Select>
 										</FormGroup>
 									</div>

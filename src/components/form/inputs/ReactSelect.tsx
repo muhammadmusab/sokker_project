@@ -116,6 +116,7 @@ export const ReactSelectInput = (props: IReactSelectProps) => {
   let SelectControl = Select;
 
   if (props.isAsync) {
+    console.log('running')
     SelectControl = ReactSelectAsync;
   }
   if (props.isCreateable) {
