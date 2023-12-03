@@ -79,7 +79,7 @@ export const getEvent = async (): Promise<Event[]> => {
 
 export const getEquipes = async (): Promise<datos[]> => {
 	try {
-		const { data } = await axios.get('https://spring-boot-sokker.onrender.com/api/equipes');
+		const  res = await axios.get('https://spring-boot-sokker.onrender.com/api/equipes');
 
 		// // Map the data and convert the 'id' field to BigInt
 		// const datosArray: datos[] = data.map((item: datos) => ({
@@ -88,9 +88,9 @@ export const getEquipes = async (): Promise<datos[]> => {
 		// }));
 
 		// console.log(datosArray);
-		console.log(data);
+		// console.log(data);
 
-		return data;
+		return res.data;
 	} catch (error) {
 		console.error('Error fetching data:', error);
 		throw error;
@@ -125,9 +125,9 @@ export const updateClub = async (updatedClubData: equipe) => {
 };
 
 export const getCoaches = async (): Promise<coach[]> => {
-	const { data } = await axios.get('https://spring-boot-sokker.onrender.com/api/entraineurs');
+	const res = await axios.get('https://spring-boot-sokker.onrender.com/api/entraineurs');
 
-	return data;
+	return res.data;
 };
 export const getCoache = async (id: number): Promise<coach> => {
 	const { data } = await axios.get(
