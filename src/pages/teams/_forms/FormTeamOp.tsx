@@ -48,9 +48,9 @@ import Wizard, { WizardItem } from '../../../components/Wizard';
 
 import PlaceholderImage from '../../../components/extras/PlaceholderImage';
 import Modal, { ModalBody, ModalFooter } from '../../../components/bootstrap/Modal';
-import { addEquipe, getCoaches } from '../../../requests';
+import { addEquipe, getCoaches, getEquipes } from '../../../requests';
 import { coach } from '../../../types';
-// import { Div } from '../../../stories/components/bootstrap/Dropdown/DropdownToggleUseChildren.stories';
+import { ReactSelectInput } from '../../../components/form/inputs/ReactSelect';
 
 const FormTeamOp = () => {
 	const { themeStatus } = useDarkMode();
@@ -63,7 +63,7 @@ const FormTeamOp = () => {
 	const [image, setImage] = useState<string>('');
 	const formData = new FormData();
 	const handleSave = async (values: any) => {
-		console.log(values);
+		// console.log(values);
 		const valuesWithoutPhoto = { ...values };
 		delete valuesWithoutPhoto.photo;
 
@@ -169,12 +169,12 @@ const FormTeamOp = () => {
 
 	useEffect(() => {
 		getCoaches()
-			.then((res) => setCoaches(res))
+			.then((res) => setCoaches(res.data))
 			.catch((err) => console.log(err));
 
 		return () => {};
 	}, []);
-	console.log(coaches);
+	// console.log(coaches);
 
 	const [upcomingEventsEditOffcanvas, setUpcomingEventsEditOffcanvas] = useState<boolean>(false);
 
@@ -309,28 +309,22 @@ const FormTeamOp = () => {
 													</FormGroup>
 												</div>
 												<div className='col-md-6 mt-4'>
-													<FormGroup
-														id='joueur_ids'
-														label='joueur_ids'
-														isFloating>
-														<Select
-															ariaLabel=''
-															name='joueur_ids'
-															className='text-capitalize'
-															defaultValue='Player1'
-															value={formik.values.joueur_ids}
-															onChange={formik.handleChange}
-															isValid={formik.isValid}
-															invalidFeedback={
-																formik.errors.joueur_ids
-															}
-															isTouched={formik.touched.joueur_ids}
-															validFeedback='Looks good!'>
-															<Option value='Player1'>Player1</Option>
-															<Option value='Player2'>Player2</Option>
-															<Option value='Player3'>Player3</Option>
-														</Select>
-													</FormGroup>
+													<ReactSelectInput
+														name='equipes'
+														label='Equipes'
+														isAsync={true}
+														isMulti={true}
+														colProps={{
+															sm: 12,
+														}}
+														callback={async (query: string) => {
+															const data = await getEquipes();
+															return data.content.map((item) => ({
+																label: item.nom,
+																value: item.id,
+															}));
+														}}
+													/>
 												</div>
 												<div className='col-12 mt-4'>
 													<FormGroup
@@ -375,153 +369,30 @@ const FormTeamOp = () => {
 											Entraineurs
 										</CardTitle>
 									</CardLabel>
-									{/* <CardActions>
-										<Button
-											icon='add'
-											isLight
-											color={lastSave ? 'info' : 'success'}
-											// onClick={() => val.length < 3 && handleAdd()}
-										>
-											ajouter Coach
-										</Button>
-									</CardActions> */}
 								</CardHeader>
 								<CardBody className='  gap-2 w-100' isScrollable>
-									<FieldArray name='coach_ids'>
-										{(fieldArrayProps) => {
-											const { push, remove, form } = fieldArrayProps;
-											const { values } = form;
-											const { coach_ids } = values;
-
-											return (
-												<div>
-													{coach_ids.map((coach: any, index: any) => (
-														<div key={index} className='row mb-4 '>
-															<div className='col-6'>
-																<Select
-																	ariaLabel=''
-																	name='coach_ids'
-																	defaultValue='nothing'
-																	onChange={(e: any) => {
-																		const selectedId = parseInt(
-																			e.target.value,
-																			10,
-																		);
-
-																		formik.setFieldValue(
-																			`coach_ids[${index}]`,
-																			selectedId,
-																		);
-																	}}>
-																	<Option
-																		value='nothing'
-																		disabled>
-																		Select a coach
-																	</Option>
-																	{coaches?.map((coach) => (
-																		<Option
-																			key={coach.id}
-																			value={coach.id}>
-																			{`${coach.nom}
-																			${coach.prenom}`}
-																		</Option>
-																	))}
-																</Select>
-															</div>
-															<div className='col-6 '>
-																<div className='row justify-content-sm-start justify-content-end '>
-																	{/* <Input
-																		name={`coach_ids[${index}].nv`}
-																		onChange={
-																			formik.handleChange
-																		}
-																		value={
-																			formik.values.coach_ids[
-																				index
-																			]?.nv || ''
-																		}
-																		type='text'
-																		style={{ minWidth: '90%' }}
-																		className='w-auto'
-																	/> */}
-																	{index > 0 && (
-																		<Button
-																			type='button'
-																			className='bg-danger text-white  '
-																			style={{
-																				width: 'fit-content',
-																			}}
-																			onClick={() => {
-																				remove(index); // Call the remove function
-																				// Set the field value manually if needed
-																				formik.setFieldValue(
-																					'coach_ids',
-																					[
-																						...coach_ids.slice(
-																							0,
-																							index,
-																						),
-																						...coach_ids.slice(
-																							index +
-																								1,
-																						),
-																					],
-																				);
-																			}}>
-																			X
-																		</Button>
-																	)}
-																</div>
-															</div>
-														</div>
-													))}
-													<Button
-														type='button'
-														className='bg-warning text-white'
-														onClick={() => push('')}>
-														+ ajouter coach
-													</Button>
-												</div>
-											);
-										}}
-									</FieldArray>
-									{/* {val.map((item, index) => {
-								const inputId = `coach${index + 1}`;
-								let inputPlaceholder;
-								let inputValue;
-
-								if (index === 0) {
-									inputPlaceholder = 'coach principale';
-									inputValue = formik.values.coach;
-								} else if (index === 1) {
-									inputPlaceholder = 'coach secondaire';
-									inputValue = formik.values.coach2;
-								} else {
-									inputPlaceholder = 'coach troisieme';
-									inputValue = formik.values.coach3;
-								}
-								const key = `coachInput-${index}`;
-								return (
-									<>
-									
-									</>
-									// <div className='d-flex gap-2 mt-4 w-100 mb-4 mb-md-0' key={key}>
-									// 	<Select ariaLabel='' className='w-50'>
-									// 		{coaches
-									// 			? coaches.map((c) => (
-									// 					<Option value={c.id}>{c.nom}</Option>
-									// 			  ))
-									// 			: ''}
-									// 	</Select>
-									// 	<Input
-									// 		value={formik.values.coach3}
-									// 		type='text'
-									// 		placeholder={inputPlaceholder}
-									// 		className='w-50'
-									// 	/>
-									// </div>
-								);
-							})} */}
+									<div className='row'>
+										<div className='col-8'>
+											{coaches && coaches.length}
+											<ReactSelectInput
+												name='coach_ids'
+												label='Entraineur'
+												isAsync={false}
+												isMulti={true}
+												colProps={{
+													sm: 12,
+												}}
+												options={
+													coaches && coaches.length
+														? coaches.map((item) => ({
+																label: item.nom,
+																value: item.id,
+														  }))
+														: []
+												}
+											/>
+										</div>
+									</div>
 								</CardBody>
 							</Card>
 						</div>
