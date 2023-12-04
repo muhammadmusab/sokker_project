@@ -352,7 +352,7 @@ const FormTeamOp = ({mode,defaultData}:FormTeamProps) => {
 	const queryClient = useQueryClient();
 	const onSubmit = async (data: any) => {
 		const { logo, ...dataToSend } = data;
-		console.log({ data });
+
 
 		const formData = new FormData();
 		formData.append('jsonData', JSON.stringify(dataToSend));
