@@ -121,7 +121,7 @@ export const deleteEquipe = async (id: BigInt) => {
 };
 
 export const updateClub = async (updatedClubData: equipe) => {
-	axios.put(`https://spring-boot-sokker.onrender.com/api/equipes`, updatedClubData);
+	axios.put(`https://spring-boot-sokker.onrender.com/api/clubs`, updatedClubData);
 };
 
 export const getCoaches = async (): Promise<coach[]> => {
@@ -142,9 +142,21 @@ export const addCoach = async (coachInfo: coach) => {
 			`https://spring-boot-sokker.onrender.com/api/entraineurs`,
 			coachInfo,
 		);
-		console.log('Equipe updated successfully', response.data);
+		console.log('Coach Added successfully', response.data);
 	} catch (error) {
-		console.error('Error updating club:', error);
+		console.error('Error Adding Coach:', error);
+		throw error;
+	}
+};
+export const updateCoach = async (coachInfo: coach) => {
+	try {
+		const response = await axios.put(
+			`https://spring-boot-sokker.onrender.com/api/entraineurs`,
+			coachInfo,
+		);
+		console.log('Coach updated successfully', response.data);
+	} catch (error) {
+		console.error('Error updating Coach:', error);
 		throw error;
 	}
 };
@@ -156,7 +168,7 @@ export const getPlayer = async (): Promise<Player_type[]> => {
 	return data;
 };
 
-export const getcluub = async (): Promise<Cluub[]> => {
+export const getclubs = async (): Promise<Cluub[]> => {
 	const { data } = await axios.get('https://spring-boot-sokker.onrender.com/api/clubs');
 	return data;
 };

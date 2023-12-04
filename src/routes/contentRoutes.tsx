@@ -344,7 +344,7 @@ const presentation: RouteProps[] = [
 		element: <FORMS_COACHES.FORMS_COACHES />,
 	},
 	{
-		path: 'entraineurs/modifier/:id',
+		path: 'entraineurs/:id',
 		element: <FORMS_COACHES.FORM_EDIT_COACH />,
 	},
 

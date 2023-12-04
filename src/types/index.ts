@@ -143,7 +143,7 @@ export type coach = {
 	nomRole: string;
 	biographie: string;
 	certification: string;
-	equipes: [{ nom: string }];
+	equipes: number[];
 	status: boolean;
 };
 

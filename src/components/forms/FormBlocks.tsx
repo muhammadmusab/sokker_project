@@ -8,7 +8,8 @@ import { Controller, FieldValues, UseFormReturn } from 'react-hook-form';
 import Input from '../bootstrap/forms/Input';
 import Card, { CardBody, CardHeader, CardTitle } from '../bootstrap/Card';
 import { ReactSelectInput } from '../form/inputs/ReactSelect';
-
+import Textarea from '../bootstrap/forms/Textarea';
+import CvIcon from '../../../SvgIcons/cv.svg';
 
 type FormBlocksProps = {
 	formBlocks: {
@@ -35,15 +36,16 @@ export default function FormBlocks({ formBlocks, hookForm, mode }: Readonly<Form
 		placeHolder,
 		className,
 		options,
+		style,
 		...rest
 	}: FromField) => {
-		
 		switch (type) {
 			case 'number':
 			case 'date':
 			case 'tel':
 			case 'email':
 			case 'text':
+			case 'password':
 				return (
 					<div key={id} className={className}>
 						<FormGroup id={id} label={label} isFloating>
@@ -55,6 +57,18 @@ export default function FormBlocks({ formBlocks, hookForm, mode }: Readonly<Form
 								errorMessage={errors[name]?.message as string}
 							/>
 						</FormGroup>
+					</div>
+				);
+			case 'textarea':
+				return (
+					<div key={id} className={className}>
+						<Textarea
+							name={name}
+							placeholder={placeHolder}
+							rows={2}
+							className={className}
+							style={{ minHeight: '150px' }}
+						/>
 					</div>
 				);
 			case 'select':
@@ -94,7 +108,7 @@ export default function FormBlocks({ formBlocks, hookForm, mode }: Readonly<Form
 							justifyContent: 'center',
 							marginTop: '-15px',
 						}}>
-						<div className='d-flex flex-column gap-5'>
+						<div className={`d-flex flex-column ${name === 'cv' ? 'gap-2' : 'gap-5'}`}>
 							{watch(name) && watch(name)?.length !== 0 ? (
 								<img
 									src={
@@ -110,17 +124,29 @@ export default function FormBlocks({ formBlocks, hookForm, mode }: Readonly<Form
 									}}
 								/>
 							) : (
-								<PlaceholderImage
-									width={200}
-									height={157}
-									className=' d-block img-fluid  rounded'
-									style={{
-										position: 'relative',
-										right: '40px !important',
-									}}
-								/>
+								<label className='d-block text-center mb-3' htmlFor={name}>
+									{name === 'cv' ? (
+										<img
+											width={120}
+											height={120}
+											src={'/resume.png'}
+											alt='svg-icon'
+										/>
+									) : (
+										<PlaceholderImage
+											width={200}
+											height={157}
+											className=' d-block img-fluid  rounded'
+											style={{
+												position: 'relative',
+												right: '40px !important',
+											}}
+										/>
+									)}
+								</label>
 							)}
 							<Input
+								id={name}
 								type={type}
 								autoComplete='photo'
 								ariaLabel='Upload image file'

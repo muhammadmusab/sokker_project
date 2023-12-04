@@ -14,6 +14,7 @@ export type FromField = {
 	type: TInputTypes | 'select' | 'ReactSelect';
 	placeHolder: string;
 	className: string;
+	style?:object
 	options?: SelectOption[];
 };
 
