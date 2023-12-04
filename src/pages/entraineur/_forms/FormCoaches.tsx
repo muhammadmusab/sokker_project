@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import { Form, Formik, useFormik } from 'formik';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
@@ -35,360 +35,364 @@ import { demoPagesMenu } from '../../../menu';
 import editPasswordValidate from '../../presentation/demo-pages/helper/editPasswordValidate';
 import Option from '../../../components/bootstrap/Option';
 import Textarea from '../../../components/bootstrap/forms/Textarea';
-import { addCoach } from '../../../requests';
+import { addCoach, getEquipes, updateItemById, getclubs } from '../../../requests';
 import WizardCoach from '../../../components/WizardCoach';
 import PlaceholderImage from '../../../components/extras/PlaceholderImage';
 import Modal, { ModalBody, ModalFooter } from '../../../components/bootstrap/Modal';
+import FormBlocks from '../../../components/forms/FormBlocks';
+import { FieldValues, useForm } from 'react-hook-form';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { toast } from 'react-hot-toast';
+import Breadcrumb from '../../../components/bootstrap/Breadcrumb';
+import { DevTool } from '@hookform/devtools';
 
-interface IPreviewItemProps {
-	title: string;
-	value: any | any[];
-}
-
-const PreviewItem: FC<IPreviewItemProps> = ({ title, value }) => {
-	return (
-		<>
-			<div className='col-3 text-end'>{title}</div>
-			<div className='col-9 fw-bold'>{value || '-'}</div>
-		</>
-	);
+type FormCoachProps = {
+	mode: 'edit' | 'add';
+	defaultData?: FieldValues;
 };
 
-const FormCoaches = () => {
+const FormCoaches = ({ mode, defaultData }: FormCoachProps) => {
 	const navigate = useNavigate();
-	const formData = new FormData();
+	const [clubs, setClubs] = useState<any[]>();
 
-	const handleSubmit = async (values: any) => {
-		console.log(values);
-		const valuesWithoutPhoto = { ...values };
-		delete valuesWithoutPhoto.photo;
-		console.log(valuesWithoutPhoto);
+	const hookForm = useForm({
+		defaultValues: defaultData,
+	});
+	const { handleSubmit, control, reset } = hookForm;
+	useEffect(() => {
+		reset(defaultData);
+	}, [defaultData]);
+	useEffect(() => {
+		let clubList: any[] = [];
+		getclubs().then((data) => {
+			data.content.map((item) => {
+				// console.log(item)
+				clubList.push({
+					label: item.nom,
+					value: item.id,
+				});
+			});
+			setClubs(clubList);
+		});
+	}, []);
 
-		try {
-			formData.append('jsonData', JSON.stringify(valuesWithoutPhoto));
+	// const [upcomingEventsEditOffcanvas, setUpcomingEventsEditOffcanvas] = useState<boolean>(false);
 
-			formData.append('image', values.photo); // Add the image to FormData
-			formData.append('cv', values.photo); // Add the image to FormData
-			// Add Formik values as JSON to FormData
+	const coachFormBlocks = [
+		{
+			title: 'Photo Entraineur',
+			formFields: [
+				{
+					id: 'image',
+					name: 'image',
+					label: 'Chose your file',
+					placeHolder: 'Chose you file',
+					type: 'file',
+					className: 'col-12',
+				},
+			],
+		},
+		{
+			title: 'Information Entraineur',
+			formFields: [
+				{
+					id: 'nom',
+					name: 'nom',
+					label: "Nom de l'équipe",
+					placeHolder: "Nom de l'équipe",
+					type: 'text',
+					className: 'col-md-4',
+				},
+				{
+					id: 'prenom',
+					name: 'prenom',
+					label: "Prenom de l'entraineur",
+					placeHolder: "Prenom de l'entraineur",
+					type: 'text',
+					className: 'col-md-4',
+				},
+				{
+					id: 'gender',
+					name: 'gender',
+					label: 'Gender',
+					options: [
+						{
+							value: 'masculin',
+							label: 'Masculin',
+						},
+						{
+							value: 'feminin',
+							label: 'Féminin',
+						},
+					],
+					placeHolder: 'Gender',
+					type: 'select',
+					className: 'col-md-4',
+				},
+				{
+					id: 'email',
+					name: 'email',
+					label: 'Email',
+					placeHolder: 'Email',
+					type: 'text',
+					className: 'col-md-4',
+				},
+				{
+					id: 'password',
+					name: 'password',
+					label: 'Password',
+					placeHolder: 'Password',
+					type: 'password',
+					className: 'col-md-4',
+				},
+				{
+					id: 'date_naissance',
+					name: 'date_naissance',
+					label: 'Date Naissance',
+					placeHolder: 'Date Naissance',
+					type: 'date',
+					className: 'col-md-4',
+				},
+				{
+					id: 'status',
+					name: 'status',
+					label: 'Status',
+					options: [
+						{
+							value: true,
+							label: 'Active',
+						},
+						{
+							value: false,
+							label: 'Inactive',
+						},
+					],
+					placeHolder: 'Status',
+					type: 'select',
+					className: 'col-md-4',
+				},
+			],
+		},
+		{
+			title: 'Contact Information',
+			formFields: [
+				{
+					id: 'telephone',
+					name: 'telephone',
+					label: 'Telephone',
+					placeHolder: 'Telephone',
+					type: 'text',
+					className: 'col-md-4',
+				},
+			],
+		},
+		{
+			title: 'Professional Information',
+			formFields: [
+				{
+					id: 'cv',
+					name: 'cv',
+					label: 'Cv',
+					placeHolder: 'Chose you file',
+					type: 'file',
+					className: 'col-12',
+				},
+				{
+					id: 'certifications',
+					name: 'certifications',
+					label: 'Certifications',
+					placeHolder: 'Certifications',
+					type: 'textarea',
+					className: 'col-12',
+				},
+				{
+					id: 'biographie',
+					name: 'biographie',
+					label: 'Biographie',
+					placeHolder: 'Biographie',
+					type: 'textarea',
+					className: 'col-12',
+				},
+			],
+		},
+		{
+			title: 'Address',
+			formFields: [
+				{
+					id: 'adresse',
+					name: 'adresse',
+					label: 'Adresse',
+					placeHolder: 'Adresse',
+					type: 'text',
+					className: 'col-md-6',
+				},
+				{
+					id: 'codePostal',
+					name: 'code_postal',
+					label: 'Code Postal',
+					placeHolder: 'Code Postal',
+					type: 'text',
+					className: 'col-md-3',
+				},
 
-			axios
-				.post('https://spring-boot-sokker.onrender.com/api/entraineurs', formData)
-				.then((response) => {
-					console.log('Image upload response:', response.data);
-					// Handle the API response here
+				{
+					id: 'ville',
+					name: 'ville',
+					label: 'Ville',
+					placeHolder: 'Ville',
+					type: 'text',
+					className: 'col-md-3',
+				},
+			],
+		},
+
+		{
+			title: 'Equipes',
+			formFields: [
+				{
+					type: 'ReactSelect',
+					className: 'col-md-12',
+					name: 'equipes',
+					label: 'equipes',
+					isAsync: true,
+					isMulti: true,
+					callback: async (query: string) => {
+						const data = await getEquipes();
+						return data.content.map((item) => ({
+							label: item.nom,
+							value: item.id,
+						}));
+					},
+				},
+			],
+		},
+
+		{
+			title: 'Club',
+			formFields: [
+				{
+					type: 'select',
+					className: 'col-md-12',
+					name: 'club',
+					label: 'Club',
+					options: clubs,
+				},
+			],
+		},
+
+		// {
+		// 	title: 'Information de responsable',
+		// 	formFields: [
+		// 		{
+		// 			id: 'responsableNom',
+		// 			name: 'responsableNom',
+		// 			label: 'Nom de responsable',
+		// 			placeHolder: 'Nom de responsable',
+		// 			type: 'text',
+		// 			className: 'col-md-6',
+		// 		},
+		// 		{
+		// 			id: 'responsableEmail',
+		// 			name: 'responsableEmail',
+		// 			label: 'Email de responsable',
+		// 			placeHolder: 'Email de responsable',
+		// 			type: 'email',
+		// 			className: 'col-md-6',
+		// 		},
+		// 	],
+		// },
+	];
+	const { mutateAsync: addCoachMutation, isLoading } = useMutation((formData: FormData) =>
+		addCoach(formData),
+	);
+	const { mutateAsync: updateCoachMutation, isLoading: isLoadingUpdate } = useMutation(
+		(formData: FormData) => updateItemById({ endPoint: 'entraineurs', formData }),
+	);
+	const queryClient = useQueryClient();
+
+	const onSubmit = async (data: any) => {
+		// let equipes = data.equipes.map((item) => item.value);
+		const { image, cv, ...dataToSend } = data;
+		// const jsonData = { ...dataToSend };
+		// const club = parseInt(data.club);
+		// const  date_naissance= 1700092800000;
+		// const status=data.status==='true'?true:false
+		// delete jsonData['equipes'];
+		// delete jsonData['club'];
+		// delete jsonData['date_naissance'];
+		// delete jsonData['status'];
+		const formData = new FormData();
+		formData.append(
+			'jsonData',
+			JSON.stringify({"equipes":[],"club":null,"role":null,"fonction":null,"date_naissance":1700092800000,"status":true,"nom":"imad","prenom":"imad","gender":"masculin","email":"jamoussiimad34@gmail.com","password":"SokkerEntraineur","telephone":"0670071326","adresse":"LOT EL KHEIR N503 SIDI MAAROUF CASABLANCA","code_postal":"BW36679","ville":"Casablanca"}),
+		);
+		formData.append('image', image[0]);
+		formData.append('cv', cv[0]);
+		if (mode === 'add')
+			await addCoachMutation(formData)
+				.then((res) => {
+					toast.success(res.data);
+					reset();
+					navigate('/entraineurs');
+					queryClient.invalidateQueries({
+						queryKey: ['entraineurs'],
+					});
 				})
 				.catch((error) => {
-					console.error('Error uploading image:', error);
-					// Handle errors here
+					toast.error(error.message);
 				});
-		} catch (error) {
-			console.error('Error adding coach:', error);
+		else {
+			await updateCoachMutation(formData)
+				.then((res) => {
+					toast.success('Entraineurs Modifier');
+					reset();
+					navigate('/entraineurs');
+					queryClient.invalidateQueries({
+						queryKey: ['entraineurs'],
+					});
+				})
+				.catch((error) => {
+					toast.error(error.message);
+				});
 		}
 	};
-
-	const formik = useFormik({
-		initialValues: {
-			nom: '',
-			prenom: '',
-			date_naissance: '',
-			email: '',
-			gender: '',
-			photo: null,
-			telephone: '',
-			biographie: '',
-			certifications: '',
-			adresse: '',
-			ville: '',
-			nomRole: 'Entraîneur',
-			code_postal: '',
-		},
-		// validate,
-		onSubmit: (values) => {
-			// alert(JSON.stringify(values));
-
-			handleSubmit(values);
-			// navigate('/entraineurs');
-		},
-	});
-
-	const [image, setImage] = useState<any>();
-
-	const onImageChange = (event: any) => {
-		if (event.target.files && event.target.files[0]) {
-			const selectedImage = event.target.files[0];
-			console.log(selectedImage);
-			formik.setFieldValue('photo', selectedImage); // Store the image file in Formik
-
-			setImage(URL.createObjectURL(selectedImage));
-		}
-	};
-
-	const [upcomingEventsEditOffcanvas, setUpcomingEventsEditOffcanvas] = useState<boolean>(false);
 	return (
 		<PageWrapper title={demoPagesMenu.editPages.subMenu.editWizard.text}>
-			<SubHeader>
-				<SubHeaderLeft>
-					<Button
-						color='warning'
-						isLink
-						icon='ArrowBack'
-						onClick={() => navigate('/entraineurs')}>
-						revenir à la liste
-					</Button>
-					<SubheaderSeparator />
-
-					<span className='text-muted text-capitalize'>ajouter entraineur</span>
-				</SubHeaderLeft>
-				<SubHeaderRight>
-					<Button color='warning' icon='Add' onClick={formik.handleSubmit}>
-						Add New
-					</Button>
-				</SubHeaderRight>
-			</SubHeader>
 			<Page>
-				<div className='row  pb-3' style={{ height: '100vh' }}>
-					<div className=' col-12'>
-						<Card>
-							<CardHeader>
-								<CardLabel icon='Edit' iconColor='warning'>
-									<CardTitle>Personal Information</CardTitle>
-								</CardLabel>
-							</CardHeader>
-							<CardBody className='pt-0'>
-								<div className='row'>
-									<div className='col-12'>
-										<div className='row g-4'>
-											<div
-												className='col-md-2'
-												onClick={() =>
-													setUpcomingEventsEditOffcanvas(true)
-												}>
-												{image ? (
-													<img
-														src={image}
-														alt=''
-														style={{
-															width: 'fit-content',
-															maxWidth: '100%',
-														}}
-													/>
-												) : (
-													<PlaceholderImage
-														width={200}
-														height={157}
-														className=' d-block img-fluid  rounded'
-														style={{
-															position: 'relative',
-															right: '40px !important',
-														}}
-													/>
-												)}
-											</div>
-
-											<div className='col-md-5'>
-												<FormGroup
-													id='nom'
-													className='text-capitalize'
-													label='nom'
-													isFloating>
-													<Input
-														placeholder='nom'
-														autoComplete='additional-name'
-														onChange={formik.handleChange}
-														onBlur={formik.handleBlur}
-														value={formik.values.nom}
-														isValid={formik.isValid}
-														isTouched={formik.touched.nom}
-														invalidFeedback={formik.errors.nom}
-														validFeedback='Looks good!'
-													/>
-												</FormGroup>
-												<FormGroup
-													id='gender'
-													className='text-capitalize mt-4'
-													label='gender'
-													isFloating>
-													<Select
-														ariaLabel=''
-														className='text-capitalize'
-														onChange={formik.handleChange}
-														value={formik.values.gender}>
-														<Option value='masculin'>masculin</Option>
-														<Option value='feminin'>féminin</Option>
-													</Select>
-												</FormGroup>
-											</div>
-											<div className='col-md-5'>
-												<FormGroup
-													id='prenom'
-													className='text-capitalize'
-													label='prenom'
-													isFloating>
-													<Input
-														placeholder='prenom'
-														autoComplete='family-name'
-														onChange={formik.handleChange}
-														onBlur={formik.handleBlur}
-														value={formik.values.prenom}
-														isValid={formik.isValid}
-														isTouched={formik.touched.prenom}
-														invalidFeedback={formik.errors.prenom}
-														validFeedback='Looks good!'
-													/>
-												</FormGroup>
-												<FormGroup
-													id='date_naissance'
-													className='text-capitalize mt-4'
-													label='date de naissance'
-													isFloating>
-													<Input
-														type='date'
-														onChange={formik.handleChange}
-														value={formik.values.date_naissance}
-													/>
-												</FormGroup>
-											</div>
-										</div>
-										<div className='col-12 mt-4'>
-											<FormGroup
-												id='biographie'
-												label='Biographie'
-												isFloating>
-												<Textarea
-													style={{ minHeight: '150px' }}
-													placeholder='Biographie'
-													autoComplete='email'
-													onChange={formik.handleChange}
-													value={formik.values.biographie}
-													isTouched={formik.touched.biographie}
-												/>
-											</FormGroup>
-										</div>
-										<div className='col-12 mt-4'>
-											<FormGroup
-												id='certifications'
-												label='certifications'
-												isFloating>
-												<Textarea
-													style={{ minHeight: '150px' }}
-													placeholder='certifications'
-													autoComplete='certifications'
-													onChange={formik.handleChange}
-													value={formik.values.certifications}
-													isTouched={formik.touched.certifications}
-												/>
-											</FormGroup>
-										</div>
-										<div className='col-12 mt-4 h-full'>
-											<div className='row g-4 justify-content-center'>
-												<div className='col-auto'>
-													<h3 className='text-capitalize text-center text-muted'>
-														entraineur cv
-													</h3>
-													<Input
-														id='photo'
-														name='photo'
-														type='file'
-														onChange={(event: any) => {
-															formik.setFieldValue(
-																'photo',
-																event.currentTarget.files[0],
-															);
-														}}
-														placeholder='Upload CV'
-													/>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</CardBody>
-						</Card>
-
-						<Card className='mb-0'>
-							<CardHeader>
-								<CardLabel icon='MarkunreadMailbox' iconColor='success'>
-									<CardTitle>Contact Information</CardTitle>
-								</CardLabel>
-							</CardHeader>
-							<CardBody className='pt-0'>
-								<div className='row g-4'>
-									<div className='col-12'>
-										<FormGroup id='telephone' label='Phone Number' isFloating>
-											<Input
-												placeholder='Phone Number'
-												type='tel'
-												autoComplete='tel'
-												onChange={formik.handleChange}
-												onBlur={formik.handleBlur}
-												value={formik.values.telephone}
-												isValid={formik.isValid}
-												isTouched={formik.touched.telephone}
-												invalidFeedback={formik.errors.telephone}
-												validFeedback='Looks good!'
-											/>
-										</FormGroup>
-									</div>
-									<div className='col-12'>
-										<FormGroup id='email' label='Email address' isFloating>
-											<Input
-												type='email'
-												placeholder='Email address'
-												autoComplete='email'
-												onChange={formik.handleChange}
-												onBlur={formik.handleBlur}
-												value={formik.values.email}
-												isValid={formik.isValid}
-												isTouched={formik.touched.email}
-												invalidFeedback={formik.errors.email}
-												validFeedback='Looks good!'
-											/>
-										</FormGroup>
-									</div>
-									<div className='col-lg-12'>
-										<FormGroup id='adresse' label='Address Line' isFloating>
-											<Input
-												onChange={formik.handleChange}
-												onBlur={formik.handleBlur}
-												value={formik.values.adresse}
-												isValid={formik.isValid}
-												isTouched={formik.touched.adresse}
-												invalidFeedback={formik.errors.adresse}
-												validFeedback='Looks good!'
-											/>
-										</FormGroup>
-									</div>
-
-									<div className='col-md-6'>
-										<FormGroup id='code_postal' label='code_postal' isFloating>
-											<Input
-												onChange={formik.handleChange}
-												onBlur={formik.handleBlur}
-												value={formik.values.code_postal}
-												isValid={formik.isValid}
-												isTouched={formik.touched.code_postal}
-												invalidFeedback={formik.errors.code_postal}
-											/>
-										</FormGroup>
-									</div>
-									<div className='col-lg-6'>
-										<FormGroup id='ville' label='ville' isFloating>
-											<Input
-												onChange={formik.handleChange}
-												onBlur={formik.handleBlur}
-												value={formik.values.ville}
-												isValid={formik.isValid}
-												isTouched={formik.touched.ville}
-												invalidFeedback={formik.errors.ville}
-												validFeedback='Looks good!'
-											/>
-										</FormGroup>
-									</div>
-								</div>
-							</CardBody>
-						</Card>
-					</div>
-				</div>
+				<form onSubmit={handleSubmit(onSubmit)}>
+					<DevTool control={control} />
+					<SubHeader>
+						<SubHeaderLeft>
+							<Breadcrumb
+								list={[
+									{ title: 'éntraineurs', to: '/entraineurs' },
+									{ title: 'Ajouter éntraineur', to: '/' },
+								]}
+							/>
+						</SubHeaderLeft>
+						<SubHeaderRight>
+							<Button
+								isDisable={isLoading || isLoadingUpdate}
+								icon={'Save'}
+								isLight
+								color={'success'}
+								type='submit'>
+								{isLoading || isLoadingUpdate
+									? 'Chargement...'
+									: mode === 'edit'
+									? 'Modifier'
+									: 'Add'}
+							</Button>
+						</SubHeaderRight>
+					</SubHeader>
+					<Page>
+						<div className='row  align-content-start'>
+							<FormBlocks formBlocks={coachFormBlocks} hookForm={hookForm} />
+						</div>
+					</Page>
+				</form>
+			</Page>
+			{/* <Page>
 				<Modal
 					setIsOpen={setUpcomingEventsEditOffcanvas}
 					isOpen={upcomingEventsEditOffcanvas}
@@ -466,7 +470,7 @@ const FormCoaches = () => {
 						</Button>
 					</ModalFooter>
 				</Modal>
-			</Page>
+			</Page> */}
 		</PageWrapper>
 	);
 };
