@@ -311,20 +311,20 @@ const FormCoaches = ({ mode, defaultData }: FormCoachProps) => {
 	const queryClient = useQueryClient();
 
 	const onSubmit = async (data: any) => {
-		// let equipes = data.equipes.map((item) => item.value);
+		let equipes = data.equipes.map((item) => item.value);
 		const { image, cv, ...dataToSend } = data;
-		// const jsonData = { ...dataToSend };
-		// const club = parseInt(data.club);
-		// const  date_naissance= 1700092800000;
-		// const status=data.status==='true'?true:false
-		// delete jsonData['equipes'];
-		// delete jsonData['club'];
-		// delete jsonData['date_naissance'];
-		// delete jsonData['status'];
+		const jsonData = { ...dataToSend };
+		const club = parseInt(data.club);
+		const  date_naissance= new Date(data.date_naissance).getTime();
+		const status=data.status==='true'?true:false
+		delete jsonData['equipes'];
+		delete jsonData['club'];
+		delete jsonData['date_naissance'];
+		delete jsonData['status'];
 		const formData = new FormData();
 		formData.append(
 			'jsonData',
-			JSON.stringify({"equipes":[],"club":null,"role":null,"fonction":null,"date_naissance":1700092800000,"status":true,"nom":"imad","prenom":"imad","gender":"masculin","email":"jamoussiimad34@gmail.com","password":"SokkerEntraineur","telephone":"0670071326","adresse":"LOT EL KHEIR N503 SIDI MAAROUF CASABLANCA","code_postal":"BW36679","ville":"Casablanca"}),
+			JSON.stringify({ equipes, club:null, role: null, fonction: null,date_naissance,status, ...jsonData }),
 		);
 		formData.append('image', image[0]);
 		formData.append('cv', cv[0]);

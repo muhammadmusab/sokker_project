@@ -191,6 +191,15 @@ export const getPlayerById = async (id: number | undefined): Promise<Player_type
 	return data;
 };
 
+export const addPlayer = async (formData: FormData) => {
+	try {
+		const { data } = await axios.post(`https://spring-boot-sokker.onrender.com/api/joueurs/`,formData);
+		console.log(data);
+		return data;
+	} catch (error) {
+		Promise.reject(error)
+	}
+};
 export const usePlayerUpdate = async (id: number | undefined): Promise<Player_type[]> => {
 	try {
 		const { data } = await axios.put(`https://spring-boot-sokker.onrender.com/api/joueurs/`);

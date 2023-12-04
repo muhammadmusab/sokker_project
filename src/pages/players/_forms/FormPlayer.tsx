@@ -24,13 +24,23 @@ import Input from '../../../components/bootstrap/forms/Input';
 import Select from '../../../components/bootstrap/forms/Select';
 import Option, { Options } from '../../../components/bootstrap/Option';
 import PlaceholderImage from '../../../components/extras/PlaceholderImage';
-import { getEquipes } from '../../../requests';
+import { addPlayer, getCluub, getEquipes, updateItemById } from '../../../requests';
 import { datos } from '../../../types';
 import Modal, { ModalBody, ModalFooter } from '../../../components/bootstrap/Modal';
+import { FieldValues, useForm } from 'react-hook-form';
+import { DevTool } from '@hookform/devtools';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import FormBlocks from '../../../components/forms/FormBlocks';
+import toast from 'react-hot-toast';
 
-const FormTeam = () => {
+type FormPlayerProps = {
+	mode: 'edit' | 'add';
+	defaultData?: FieldValues;
+};
+
+const FormPlayer = ({ mode, defaultData }: FormPlayerProps) => {
 	const [lastSave, setLastSave] = useState<Dayjs | null>(null);
-	const [isLoading, setIsLoading] = useState<boolean>(false);
+	// const [isLoading, setIsLoading] = useState<boolean>(false);
 	const [equipes, setEquipes] = useState<datos[] | undefined>(undefined);
 	const [ignord, forceUpdate] = useReducer((x) => x + 1, 0);
 	const [image, setImage] = useState<string>('');
@@ -47,27 +57,108 @@ const FormTeam = () => {
 			.catch((err) => console.log(err));
 	}, [ignord]);
 
-	const handleSubmit = async (values: any) => {
-		console.log(values);
+	const navigate = useNavigate();
+	const queryClient = useQueryClient();
+	const onSubmit = async (values: any) => {
 		const valuesWithoutPhoto = { ...values };
-		delete valuesWithoutPhoto.photo;
-		formData.append('jsonData', JSON.stringify(valuesWithoutPhoto));
-		formData.append('image', values.photo);
 
-		try {
-			const response = await axios.post(
-				'https://spring-boot-sokker.onrender.com/api/joueurs',
-				formData,
-			);
-			navitage('/joueur');
-			console.log('API response:', response);
-		} catch (error) {
-			console.error('API error:', error);
+		delete valuesWithoutPhoto.photo;
+		valuesWithoutPhoto.club = valuesWithoutPhoto.club.value;
+		valuesWithoutPhoto.equipeId = valuesWithoutPhoto.equipeId.value;
+		formData.append('jsonData', JSON.stringify(valuesWithoutPhoto));
+		formData.append('image', values.photo[0]);
+
+		if (mode === 'add')
+			await addJoueurMutation(formData)
+				.then((res) => {
+					toast.success(res.data);
+					reset();
+					navigate('/joueurs');
+					queryClient.invalidateQueries({
+						queryKey: ['joueurs'],
+					});
+				})
+				.catch((error) => {
+					toast.error(error.message);
+				});
+		else {
+			await updateJoueurMutation(formData)
+				.then((res) => {
+					toast.success('Joueur Modifier');
+					reset();
+					navigate('/joueurs');
+					queryClient.invalidateQueries({
+						queryKey: ['joueurs'],
+					});
+				})
+				.catch((error) => {
+					toast.error(error.message);
+				});
 		}
 	};
 
-	const formik = useFormik({
-		initialValues: {
+	// const formik = useFormik({
+	// 	initialValues: {
+	// 		gender: '',
+	// 		email: '',
+	// 		password: 'example_password',
+	// 		nom: '',
+	// 		prenom: '',
+	// 		date_naissance: '',
+	// 		telephone: '',
+	// 		adresse: '',
+	// 		absences: [],
+	// 		numeroLicence: '',
+	// 		poste: '',
+	// 		ficheSante: 'Health information',
+	// 		taille: '',
+	// 		poids: '',
+	// 		vma: '',
+	// 		clubPrecedent: '',
+	// 		niveau: '',
+	// 		saisonActuelle: '',
+	// 		pointure: '',
+	// 		tailleMaillot: '',
+	// 		reseau_sociauxes: [],
+	// 		mere_utilisateur: {
+	// 			email: '',
+	// 			telephone: '',
+	// 			adresse: '',
+	// 		},
+	// 		pere_utilisateur: {
+	// 			email: '',
+	// 			telephone: '',
+	// 			adresse: '',
+	// 		},
+	// 		statistiqueJoueur: [],
+	// 		equipeId: '',
+	// 		photo: '',
+	// 	},
+	// 	onSubmit: (values) => {
+	// 		handleSubmit(values);
+	// 	},
+	// });
+
+	const [upcomingEventsEditOffcanvas, setUpcomingEventsEditOffcanvas] = useState<boolean>(false);
+
+	// const onImageChange = (event: any) => {
+	// 	if (event.target.files && event.target.files[0]) {
+	// 		const selectedImage = event.target.files[0];
+	// 		console.log(selectedImage);
+	// 		formik.setFieldValue('photo', selectedImage); // Store the image file in Formik
+	// 		setImage(URL.createObjectURL(selectedImage));
+	// 	}
+	// };
+
+	const { mutateAsync: addJoueurMutation, isLoading } = useMutation((formData: FormData) =>
+		addPlayer(formData),
+	);
+	const { mutateAsync: updateJoueurMutation, isLoading: isLoadingUpdate } = useMutation(
+		(formData: FormData) => updateItemById({ endPoint: 'joueurs', formData }),
+	);
+
+	const hookForm = useForm({
+		defaultValues: defaultData ?? {
 			gender: '',
 			email: '',
 			password: 'example_password',
@@ -103,46 +194,493 @@ const FormTeam = () => {
 			equipeId: '',
 			photo: '',
 		},
-		onSubmit: (values) => {
-			handleSubmit(values);
-		},
+		// resolver: zodResolver(CLUB_FORM_SCHEMA),
 	});
 
-	const [upcomingEventsEditOffcanvas, setUpcomingEventsEditOffcanvas] = useState<boolean>(false);
+	const { handleSubmit, control, reset } = hookForm;
 
-	const onImageChange = (event: any) => {
-		if (event.target.files && event.target.files[0]) {
-			const selectedImage = event.target.files[0];
-			console.log(selectedImage);
-			formik.setFieldValue('photo', selectedImage); // Store the image file in Formik
-			setImage(URL.createObjectURL(selectedImage));
-		}
-	};
+	const playerFormBlocks = [
+		{
+			title: 'Joueur photo',
+			formFields: [
+				{
+					id: 'photo',
+					name: 'photo',
+					label: 'Chose your file',
+					placeHolder: 'Chose you file',
+					type: 'file',
+					className: 'col-12',
+				},
+			],
+		},
+		{
+			title: 'Personal Information',
+			formFields: [
+				{
+					id: 'nom',
+					name: 'nom',
+					label: 'Nom de joueur',
+					placeHolder: 'Nom de joueur',
+					type: 'text',
+					className: 'col-md-4',
+				},
+				{
+					id: 'prenom',
+					name: 'prenom',
+					label: 'Prenom de joueur',
+					placeHolder: 'Prenom de joueur',
+					type: 'text',
+					className: 'col-md-4',
+				},
+				{
+					id: 'email',
+					name: 'email',
+					label: 'Mail',
+					placeHolder: 'Mail',
+					type: 'text',
+					className: 'col-md-4',
+				},
+				{
+					id: 'password',
+					name: 'password',
+					label: 'Password',
+					placeHolder: 'Password',
+					type: 'password',
+					className: 'col-md-4',
+				},
+				{
+					id: 'numeroLicence',
+					name: 'numeroLicence',
+					label: 'Numéro de licence',
+					placeHolder: 'Numéro de licence',
+					type: 'text',
+					className: 'col-md-4',
+				},
+				{
+					id: 'poste',
+					name: 'poste',
+					label: 'Poste',
+					options: [
+						{
+							label: 'Attaquant',
+							value: 'Attaquant',
+						},
+						{
+							label: 'Milieu',
+							value: 'Milieu',
+						},
+						{
+							label: 'Défenseur',
+							value: 'Défenseur',
+						},
+						{
+							label: 'Gardien',
+							value: 'Gardien',
+						},
+					],
+					placeHolder: 'Poste',
+					type: 'select',
+					className: 'col-md-4',
+				},
+				{
+					id: 'gender',
+					name: 'gender',
+					label: 'Gender',
+					options: [
+						{
+							label: 'Garçon',
+							value: 'Garçon',
+						},
+						{
+							label: 'Fille',
+							value: 'Fille',
+						},
+					],
+					placeHolder: 'Gender',
+					type: 'select',
+					className: 'col-md-4',
+				},
+				{
+					id: 'date_naissance',
+					name: 'date_naissance',
+					label: 'Date de naissance',
+					placeHolder: 'Date de naissance',
+					type: 'date',
+					className: 'col-md-4',
+				},
+				{
+					id: 'taille',
+					name: 'taille',
+					label: 'Taille',
+					placeHolder: 'Taille',
+					type: 'text',
+					className: 'col-md-4',
+				},
+				{
+					id: 'poids',
+					name: 'poids',
+					label: 'Poids',
+					placeHolder: 'Poids',
+					type: 'text',
+					className: 'col-md-4',
+				},
+			],
+		},
+		{
+			title: 'Professional Information',
+			formFields: [
+				{
+					label: 'Club',
+					placeholder: 'Sélectionner les Club',
+					name: 'club',
+					type: 'ReactSelect',
+					callback: async (query: string) => {
+						const data = await getCluub();
+						if (!data?.content) return [];
+						const { content } = data;
+						return content.map((club) => {
+							return {
+								label: club.nom,
+								value: club.id,
+							};
+						});
+					},
+					isAsync: true,
+					className: 'col-md-4',
+				},
+				{
+					id: 'equipe',
+					label: 'Equipe',
+					placeholder: 'Equpie',
+					name: 'equipeId',
+					type: 'ReactSelect',
+					callback: async (query: string) => {
+						const data = await getEquipes();
+						if (!data?.content) return [];
+						const { content } = data;
+						return content.map((equipe) => {
+							return {
+								label: equipe.nom,
+								value: equipe.id,
+							};
+						});
+					},
+					isAsync: true,
+					className: 'col-md-4',
+				},
+				{
+					id: 'pointure',
+					label: 'Pointure',
+					placeholder: 'Pointure',
+					name: 'pointure',
+					type: 'text',
+					className: 'col-md-4',
+				},
+				{
+					id: 'vma',
+					label: 'Vma',
+					placeholder: 'Vma',
+					name: 'vma',
+					type: 'text',
+					className: 'col-md-4',
+				},
+				{
+					id: 'tailleMaillot',
+					label: 'TailleMaillot',
+					placeholder: 'TailleMaillot',
+					name: 'tailleMaillot',
+					type: 'text',
+					className: 'col-md-4',
+				},
+				{
+					id: 'clubPrecedent',
+					label: 'Club Precedent',
+					placeholder: 'Club Precedent',
+					name: 'clubPrecedent',
+					type: 'text',
+					className: 'col-md-4',
+				},
+				{
+					id: 'niveau',
+					label: 'Niveau',
+					placeholder: 'Niveau',
+					name: 'niveau',
+					type: 'text',
+					className: 'col-md-4',
+				},
+				{
+					id: 'saisonActuelle',
+					label: 'Saison Actuelle',
+					placeholder: 'Saison Actuelle',
+					name: 'saisonActuelle',
+					type: 'text',
+					className: 'col-md-4',
+				},
+
+				//   {
+				// 	label: 'Fonction',
+				// 	placeholder: 'Fonction',
+				// 	name: 'fonction',
+				// 	formControl: Control.TextInput,
+				// 	colProps: {
+				// 	  sm: 6,
+				// 	},
+				//   },
+				//   {
+				// 	label: 'Drive',
+				// 	placeholder: 'Drive',
+				// 	name: 'drive',
+				// 	formControl: Control.TextInput,
+				// 	colProps: {
+				// 	  sm: 6,
+				// 	},
+				//   },
+			],
+		},
+		{
+			title: 'Mere Information',
+			formFields: [
+				{
+					label: 'Email',
+					placeholder: 'Email',
+					name: 'mere_utilisateur.email',
+					type: 'text',
+					className: 'col-md-4',
+				},
+				{
+					id: 'password',
+					label: 'Password',
+					placeholder: 'Password',
+					name: 'mere_utilisateur.password',
+					type: 'text',
+					className: 'col-md-4',
+				},
+				{
+					id: 'nom',
+					label: 'Nom',
+					placeholder: 'Nom',
+					name: 'mere_utilisateur.nom',
+					type: 'text',
+					className: 'col-md-4',
+				},
+				{
+					id: 'prenom',
+					label: 'Prenom',
+					placeholder: 'Prenom',
+					name: 'mere_utilisateur.prenom',
+					type: 'text',
+					className: 'col-md-4',
+				},
+				//   {
+				// 	label: 'Biographie',
+				// 	placeholder: 'Biographie',
+				// 	name: 'mere_utilisateur.biographie',
+				// 	formControl: Control.Textarea,
+				// 	className: 'col-md-4',
+				//   },
+				{
+					id: 'telephone',
+					label: 'Telephone',
+					placeholder: 'Telephone',
+					name: 'mere_utilisateur.telephone',
+					type: 'tel',
+					className: 'col-md-4',
+				},
+				//   {
+				// 	label: 'Adresse',
+				// 	placeholder: 'Adresse',
+				// 	name: 'mere_utilisateur.adresse',
+				// 	formControl: Control.TextInput,
+				// 	className: 'col-md-4',
+				//   },
+
+				{
+					label: 'Genre',
+					placeholder: '',
+					name: 'mere_utilisateur.gender',
+					type: 'select',
+					options: [
+						{
+							label: 'Garçon',
+							value: 'Garçon',
+						},
+						{
+							label: 'Fille',
+							value: 'Fille',
+						},
+					],
+					className: 'col-md-4',
+				},
+				//   {
+				// 	label: 'Code Postal',
+				// 	placeholder: 'Code Postal',
+				// 	name: 'mere_utilisateur.code_postal',
+				// 	formControl: Control.TextInput,
+				// 	colProps: {
+				// 	  sm: 6,
+				// 	},
+				//   },
+				//   {
+				// 	label: 'Ville',
+				// 	placeholder: 'Ville',
+				// 	name: 'mere_utilisateur.ville',
+				// 	formControl: Control.TextInput,
+				// 	colProps: {
+				// 	  sm: 6,
+				// 	},
+				//   },
+				//   {
+				// 	label: 'Fonction',
+				// 	placeholder: 'Fonction',
+				// 	name: 'mere_utilisateur.fonction',
+				// 	formControl: Control.TextInput,
+				// 	colProps: {
+				// 	  sm: 6,
+				// 	},
+				//   },
+			],
+		},
+		{
+			title: 'Pere Information',
+			formFields: [
+				{
+					label: 'Email',
+					placeholder: 'Email',
+					name: 'pere_utilisateur.email',
+					type: 'text',
+					className: 'col-md-4',
+				},
+				{
+					id: 'password',
+					label: 'Password',
+					placeholder: 'Password',
+					name: 'pere_utilisateur.password',
+					type: 'text',
+					className: 'col-md-4',
+				},
+				{
+					id: 'nom',
+					label: 'Nom',
+					placeholder: 'Nom',
+					name: 'pere_utilisateur.nom',
+					type: 'text',
+					className: 'col-md-4',
+				},
+				{
+					id: 'prenom',
+					label: 'Prenom',
+					placeholder: 'Prenom',
+					name: 'pere_utilisateur.prenom',
+					type: 'text',
+					className: 'col-md-4',
+				},
+				//   {
+				// 	label: 'Biographie',
+				// 	placeholder: 'Biographie',
+				// 	name: 'pere_utilisateur.biographie',
+				// 	formControl: Control.Textarea,
+				// 	className: 'col-md-4',
+				//   },
+				{
+					id: 'telephone',
+					label: 'Telephone',
+					placeholder: 'Telephone',
+					name: 'pere_utilisateur.telephone',
+					type: 'tel',
+					className: 'col-md-4',
+				},
+				//   {
+				// 	label: 'Adresse',
+				// 	placeholder: 'Adresse',
+				// 	name: 'pere_utilisateur.adresse',
+				// 	formControl: Control.TextInput,
+				// 	className: 'col-md-4',
+				//   },
+
+				{
+					label: 'Genre',
+					placeholder: '',
+					name: 'pere_utilisateur.gender',
+					type: 'select',
+					options: [
+						{
+							label: 'Garçon',
+							value: 'Garçon',
+						},
+						{
+							label: 'Fille',
+							value: 'Fille',
+						},
+					],
+					className: 'col-md-4',
+				},
+				//   {
+				// 	label: 'Code Postal',
+				// 	placeholder: 'Code Postal',
+				// 	name: 'pere_utilisateur.code_postal',
+				// 	formControl: Control.TextInput,
+				// 	colProps: {
+				// 	  sm: 6,
+				// 	},
+				//   },
+				//   {
+				// 	label: 'Ville',
+				// 	placeholder: 'Ville',
+				// 	name: 'pere_utilisateur.ville',
+				// 	formControl: Control.TextInput,
+				// 	colProps: {
+				// 	  sm: 6,
+				// 	},
+				//   },
+				//   {
+				// 	label: 'Fonction',
+				// 	placeholder: 'Fonction',
+				// 	name: 'pere_utilisateur.fonction',
+				// 	formControl: Control.TextInput,
+				// 	colProps: {
+				// 	  sm: 6,
+				// 	},
+				//   },
+			],
+		},
+	];
 
 	return (
 		<PageWrapper title={demoPagesMenu.editPages.subMenu.editModern.text}>
-			<SubHeader>
-				<SubHeaderLeft>
-					<Breadcrumb
-						list={[
-							{ title: 'joueurs', to: '/joueur' },
-							{ title: 'Ajouter joueur', to: '/' },
-						]}
-					/>
-				</SubHeaderLeft>
-				<SubHeaderRight>
-					<Button
-						icon={isLoading ? undefined : 'Save'}
-						isLight
-						color={lastSave ? 'info' : 'success'}
-						isDisable={isLoading}
-						onClick={formik.handleSubmit}>
-						Save
-					</Button>
-				</SubHeaderRight>
-			</SubHeader>
 			<Page>
-				<div className='row h-100 align-content-start'>
+				<form onSubmit={handleSubmit(onSubmit)}>
+					<DevTool control={control} />
+					<SubHeader>
+						<SubHeaderLeft>
+							<Breadcrumb
+								list={[
+									{ title: 'joueurs', to: '/joueur' },
+									{ title: 'Ajouter joueur', to: '/' },
+								]}
+							/>
+						</SubHeaderLeft>
+						<SubHeaderRight>
+							<Button
+								isDisable={isLoading || isLoadingUpdate}
+								icon={'Save'}
+								isLight
+								color={'success'}
+								type='submit'>
+								{isLoading || isLoadingUpdate
+									? 'Chargement...'
+									: mode === 'edit'
+									? 'Modifier'
+									: 'Add'}
+							</Button>
+						</SubHeaderRight>
+					</SubHeader>
+					<Page>
+						<div className='row  align-content-start'>
+							<FormBlocks formBlocks={playerFormBlocks} hookForm={hookForm} />
+						</div>
+					</Page>
+				</form>
+				{/* <div className='row h-100 align-content-start'>
 					<div className='col-md-12'>
 						<Card>
 							<CardHeader>
@@ -454,16 +992,7 @@ const FormTeam = () => {
 										</FormGroup>
 									</div>
 
-									{/* <div className='col-md-4'>
-										<FormGroup id='lastName' label='Fiche santé' isFloating>
-											<Input
-												placeholder='Fiche santé'
-												autoComplete='additional-name'
-												onChange={formik.handleChange}
-												type='file'
-											/>
-										</FormGroup>
-									</div> */}
+
 									<div className='col-md-6 mt-4'>
 										<FormGroup id='equipeId' label='Equipes' isFloating>
 											<Select
@@ -691,15 +1220,14 @@ const FormTeam = () => {
 						<Button
 							color='success'
 							className='w-100'
-							// onClick={() => handleUpdate(club.id, formik.values)}
 						>
 							Update
 						</Button>
 					</ModalFooter>
-				</Modal>
+				</Modal> */}
 			</Page>
 		</PageWrapper>
 	);
 };
 
-export default FormTeam;
+export default FormPlayer;
